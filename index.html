@@ -228,10 +228,10 @@ function submitOrder() {
     address: address
   });
 
-  fetch(scriptURL + '?' + params.toString(), {
+ fetch(scriptURL + '?' + params.toString(), {
     method: 'GET',
-    mode: 'no-cors'
-  })
+    mode: 'no-cors',
+    redirect: 'follow'
   .then(function() { showThankYou(); })
   .catch(function() { showThankYou(); });
 }
