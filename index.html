@@ -228,12 +228,12 @@ function submitOrder() {
     address: address
   });
 
- fetch(scriptURL + '?' + params.toString(), {
-    method: 'GET',
-    mode: 'no-cors',
-    redirect: 'follow'
-  .then(function() { showThankYou(); })
-  .catch(function() { showThankYou(); });
+fetch(scriptURL + '?' + params.toString(), {
+  method: 'GET',
+  mode: 'no-cors'
+})
+.then(function() { showThankYou(); })
+.catch(function() { showThankYou(); });
 }
 
 function showThankYou() {
