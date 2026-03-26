@@ -206,17 +206,13 @@ function submitOrder() {
   var name    = document.getElementById('f_name').value.trim();
   var phone   = document.getElementById('f_phone').value.trim();
   var address = document.getElementById('f_address').value.trim();
-
   if (!name)                       { alert('कृपया नाम भरें!'); return; }
   if (!phone || phone.length < 10) { alert('कृपया सही फ़ोन नंबर भरें!'); return; }
   if (!address)                    { alert('कृपया पता भरें!'); return; }
-
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = '⏳ भेज रहे हैं...';
-
   var scriptURL = 'https://script.google.com/macros/s/AKfycbxW94lLvXUmpx7f83ENaDrYI6ROa0hu0VPnMnCg5Z-OLvwZMGBW0UZPFlWcK2maO3GQ/exec';
-
   var params = new URLSearchParams({
     date:    new Date().toLocaleString('hi-IN'),
     name:    name,
@@ -227,15 +223,13 @@ function submitOrder() {
     problem: document.getElementById('f_problem').value.trim(),
     address: address
   });
-
-fetch(scriptURL + '?' + params.toString(), {
-  method: 'GET',
-  mode: 'no-cors'
-})
-.then(function() { showThankYou(); })
-.catch(function() { showThankYou(); });
+  fetch(scriptURL + '?' + params.toString(), {
+    method: 'GET',
+    mode: 'no-cors'
+  })
+  .then(function() { showThankYou(); })
+  .catch(function() { showThankYou(); });
 }
-
 function showThankYou() {
   document.getElementById('orderForm').style.display = 'none';
   document.getElementById('thankYouMsg').style.display = 'block';
