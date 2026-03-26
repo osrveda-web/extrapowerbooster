@@ -2,7 +2,7 @@
 
 <!DOCTYPE html> <html lang="hi"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Extra Power Booster Majoon</title> <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&display=swap" rel="stylesheet"> <style
 
-pasted
+pasted 
 
 yahan pr ik otption hai हमारी Website पर Order करने के लिए यहाँ Click करेंआप Meesho • Flipkart • Amazon पर भी Order कर सकते हैं   . yahan pr click krke form nhi open horha hai jisme custmer click kre to ye  form khule jisme DateNamePhoneAgeWeightProblemAddress ye form bhi hai sheet add ha tumhe link diya bhi tha  kki custmer osme ye sare chiejen fill krke submot kre to wo sara data sidha mere pass sheet me ajeye or custmer ko thankx wala button show ho jye ki oder book krne ke liye sukriaya hamre vaid ji apko jld hi phone krege https://script.google.com/macros/s/AKfycby45f-faRHosbSX8Vwu5J3-vqORLh8yv-OeOGbFlVlhteHmif__VkU9Zkvj_QcXB-p-/exec
 
@@ -131,7 +131,7 @@ img{width:100%;display:block;}
   <div class="mkt-title">हमारी Website पर Order करें — या इन Platforms पर भी उपलब्ध है</div>
   <div class="mkt-sub">अभी Order करें — यहाँ Click करें 👇</div>
   <div style="text-align:center;margin-bottom:16px;">
-    <a class="cta" href="#" style="display:inline-block;font-size:clamp(15px,4vw,20px);padding:14px 30px;">🌐 हमारी Website पर Order करें<br/><small style="font-size:0.6em;font-weight:600;">सबसे सस्ता — Direct Order</small></a>
+    <a class="cta" href="javascript:void(0)" onclick="document.getElementById('orderModal').style.display='flex'" style="display:inline-block;font-size:clamp(15px,4vw,20px);padding:14px 30px;">🌐 हमारी Website पर Order करें<br/><small style="font-size:0.6em;font-weight:600;">सबसे सस्ता — Direct Order</small></a>
   </div>
   <div style="text-align:center;font-size:13px;color:#fff;font-weight:700;margin-bottom:14px;">— या इन Platforms पर भी Order कर सकते हैं —</div>
   <div class="mkt-grid">
@@ -195,41 +195,56 @@ img{width:100%;display:block;}
       <label style="font-size:14px;font-weight:600;color:#333;">पता (Address) *</label>
       <textarea id="f_address" placeholder="पूरा पता लिखें" rows="3" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;resize:none;"></textarea>
 
-      <button onclick="submitOrder()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:5px;">✅ Order Submit करें</button>
+      <button id="submitBtn" onclick="submitOrder()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:5px;">✅ Order Submit करें</button>
     </div>
   </div>
 </div>
 
 <script>
+<script>
 function submitOrder() {
-  var name = document.getElementById('f_name').value.trim();
-  var phone = document.getElementById('f_phone').value.trim();
+  var name    = document.getElementById('f_name').value.trim();
+  var phone   = document.getElementById('f_phone').value.trim();
   var address = document.getElementById('f_address').value.trim();
 
-  if (!name) { alert('कृपया नाम भरें!'); return; }
+  if (!name)                       { alert('कृपया नाम भरें!'); return; }
   if (!phone || phone.length < 10) { alert('कृपया सही फ़ोन नंबर भरें!'); return; }
-  if (!address) { alert('कृपया पता भरें!'); return; }
+  if (!address)                    { alert('कृपया पता भरें!'); return; }
 
-  var formData = new FormData();
-  formData.append('date', new Date().toLocaleString('hi-IN'));
-  formData.append('name', name);
-  formData.append('phone', phone);
-  formData.append('age', document.getElementById('f_age').value);
-  formData.append('weight', document.getElementById('f_weight').value);
-  formData.append('height', document.getElementById('f_height').value);
-  formData.append('problem', document.getElementById('f_problem').value);
-  formData.append('address', address);
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ भेज रहे हैं...';
 
-  fetch('https://script.google.com/macros/s/AKfycby45f-faRHosbSX8Vwu5J3-vqORLh8yv-OeOGbFlVlhteHmif__VkU9Zkvj_QcXB-p-/exec', {
-    method: 'POST',
-    body: formData
-  }).then(function() {
-    document.getElementById('orderForm').style.display = 'none';
-    document.getElementById('thankYouMsg').style.display = 'block';
-  }).catch(function() {
-    document.getElementById('orderForm').style.display = 'none';
-    document.getElementById('thankYouMsg').style.display = 'block';
+  var scriptURL = 'https://script.google.com/macros/s/AKfycby45f-faRHosbSX8Vwu5J3-vqORLh8yv-OeOGbFlVlhteHmif__VkU9Zkvj_QcXB-p-/exec';
+
+  var params = new URLSearchParams({
+    date:    new Date().toLocaleString('hi-IN'),
+    name:    name,
+    phone:   document.getElementById('f_phone').value.trim(),
+    age:     document.getElementById('f_age').value.trim(),
+    weight:  document.getElementById('f_weight').value.trim(),
+    height:  document.getElementById('f_height').value.trim(),
+    problem: document.getElementById('f_problem').value.trim(),
+    address: address
   });
+
+  fetch(scriptURL + '?' + params.toString(), {
+    method: 'GET',
+    mode: 'no-cors'
+  })
+  .then(function() { showThankYou(); })
+  .catch(function() { showThankYou(); });
+}
+
+function showThankYou() {
+  document.getElementById('orderForm').style.display = 'none';
+  document.getElementById('thankYouMsg').style.display = 'block';
+  ['f_name','f_phone','f_age','f_weight','f_height','f_problem','f_address'].forEach(function(id){
+    document.getElementById(id).value = '';
+  });
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = false;
+  btn.textContent = '✅ Order Submit करें';
 }
 </script>
 
