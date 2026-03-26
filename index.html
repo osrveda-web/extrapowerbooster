@@ -182,7 +182,7 @@ img{width:100%;display:block;}
       <input type="text" id="f_weight" placeholder="जैसे: 70kg" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
       <label style="font-size:14px;font-weight:600;color:#333;">ऊंचाई (Height)</label>
       <input type="text" id="f_height" placeholder="जैसे: 5'7&quot;" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
-      <label style="font-size:14px;font-weight:600;color:#333;">समस्या (Problem)</label>
+      <label style="font-size:14px;font-weight:600;color:#333;">ऊंचाई (Height)</label> <input type="text" id="f_height" placeholder="जैसे: 5'7&quot;" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;"> ```
       <textarea id="f_problem" placeholder="अपनी समस्या लिखें" rows="3" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;resize:none;"></textarea>
       <label style="font-size:14px;font-weight:600;color:#333;">पता (Address) *</label>
       <textarea id="f_address" placeholder="पूरा पता लिखें" rows="3" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;resize:none;"></textarea>
@@ -205,7 +205,7 @@ function submitOrder() {
     phone: phone,
     age: document.getElementById('f_age').value,
     weight: document.getElementById('f_weight').value,
-    problem: document.getElementById('f_problem').value,
+  height: document.getElementById('f_height').value,
     address: address
   };
   fetch('https://script.google.com/macros/s/AKfycbwBF2t_p5xhuWvkTZ5GkrGztzciG3RIJzZ5sK2nGldlNzmPNcJwcssUmBta244xkUO3/exec', {
