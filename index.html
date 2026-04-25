@@ -167,21 +167,6 @@ img{width:100%;display:block;}
       <label style="font-size:14px;font-weight:600;color:#333;">फ़ोन (Phone) *</label>
       <input type="tel" id="f_phone" placeholder="10 अंक का नंबर" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
 
-      <label style="font-size:14px;font-weight:600;color:#333;">उम्र (Age)</label>
-      <input type="number" id="f_age" placeholder="उम्र लिखें" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
-
-      <label style="font-size:14px;font-weight:600;color:#333;">वजन (Weight)</label>
-      <input type="text" id="f_weight" placeholder="जैसे: 70kg" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
-
-      <label style="font-size:14px;font-weight:600;color:#333;">ऊंचाई (Height)</label>
-      <input type="text" id="f_height" placeholder="जैसे: 5'7&quot;" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
-
-      <label style="font-size:14px;font-weight:600;color:#333;">समस्या (Problem)</label>
-      <textarea id="f_problem" placeholder="अपनी समस्या लिखें" rows="3" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;resize:none;"></textarea>
-
-      <label style="font-size:14px;font-weight:600;color:#333;">पता (Address) *</label>
-      <textarea id="f_address" placeholder="पूरा पता लिखें" rows="3" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;resize:none;"></textarea>
-
       <button id="submitBtn" onclick="submitOrder()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:5px;">✅ Order Submit करें</button>
     </div>
   </div>
@@ -191,10 +176,8 @@ img{width:100%;display:block;}
 function submitOrder() {
   var name    = document.getElementById('f_name').value.trim();
   var phone   = document.getElementById('f_phone').value.trim();
-  var address = document.getElementById('f_address').value.trim();
   if (!name)                       { alert('कृपया नाम भरें!'); return; }
   if (!phone || phone.length < 10) { alert('कृपया सही फ़ोन नंबर भरें!'); return; }
-  if (!address)                    { alert('कृपया पता भरें!'); return; }
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = '⏳ भेज रहे हैं...';
@@ -202,12 +185,7 @@ function submitOrder() {
   var params = new URLSearchParams({
     date:    new Date().toLocaleString('hi-IN'),
     name:    name,
-    phone:   phone,
-    age:     document.getElementById('f_age').value.trim(),
-    weight:  document.getElementById('f_weight').value.trim(),
-    height:  document.getElementById('f_height').value.trim(),
-    problem: document.getElementById('f_problem').value.trim(),
-    address: address
+    phone:   phone
   });
   fetch(scriptURL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
   .then(function() { showThankYou(); })
@@ -222,7 +200,7 @@ function showThankYou() {
     fbq('track', 'Purchase', { value: 999, currency: 'INR' });
   }
 
-  ['f_name','f_phone','f_age','f_weight','f_height','f_problem','f_address'].forEach(function(id){
+  ['f_name','f_phone'].forEach(function(id){
     document.getElementById(id).value = '';
   });
   var btn = document.getElementById('submitBtn');
@@ -233,10 +211,3 @@ function showThankYou() {
 
 </body>
 </html>
-```
-
----
-
-
-```
-<a class="cta" href="javascript:void(0)" onclick="document.getElementById('orderModal').style.display='flex'">
